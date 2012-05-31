@@ -1,0 +1,5 @@
+. $topsrcdir/browser/config/mozconfig
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/objdir-dbg
+ac_add_options --disable-optimize
+ac_add_options --enable-debug 
+ac_add_options --enable-tests

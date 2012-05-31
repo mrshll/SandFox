@@ -1,0 +1,2 @@
+Adding client.mk options from /c/Users/imelven/src/sandbox/mozconfig:
+    MOZ_OBJDIR=$(TOPSRCDIR)/objdir-dbg

@@ -1,0 +1,48 @@
+#filter substitution
+
+chrome.jar:
+% skin browser classic/1.0 %skin/
+  skin/aboutPage.css                        (aboutPage.css)
+  skin/about.css                            (about.css)
+  skin/aboutAddons.css                      (aboutAddons.css)
+  skin/aboutApps.css                        (aboutApps.css)
+* skin/aboutDownloads.css                   (aboutDownloads.css)
+* skin/browser.css                          (browser.css)
+* skin/content.css                          (content.css)
+  skin/config.css                           (config.css)
+  skin/touchcontrols.css                    (touchcontrols.css)
+  skin/netError.css                         (netError.css)
+% override chrome://global/skin/about.css chrome://browser/skin/about.css
+% override chrome://global/skin/media/videocontrols.css chrome://browser/skin/touchcontrols.css
+% override chrome://global/skin/netError.css chrome://browser/skin/netError.css
+
+  skin/images/addons-32.png                 (images/addons-32.png)
+  skin/images/arrowleft-16.png              (images/arrowleft-16.png)
+  skin/images/arrowright-16.png             (images/arrowright-16.png)
+  skin/images/arrowdown-16.png              (images/arrowdown-16.png)
+  skin/images/checkbox_checked.png          (images/checkbox_checked.png)
+  skin/images/checkbox_checked_disabled.png (images/checkbox_checked_disabled.png)
+  skin/images/checkbox_checked_pressed.png  (images/checkbox_checked_pressed.png)
+  skin/images/checkbox_unchecked.png          (images/checkbox_unchecked.png)
+  skin/images/checkbox_unchecked_disabled.png (images/checkbox_unchecked_disabled.png)
+  skin/images/checkbox_unchecked_pressed.png  (images/checkbox_unchecked_pressed.png)
+  skin/images/dropmarker.svg                (images/dropmarker.svg)
+  skin/images/errorpage-warning.png         (images/errorpage-warning.png)
+  skin/images/errorpage-warning.png         (images/errorpage-warning.png)
+  skin/images/errorpage-larry-white.png     (images/errorpage-larry-white.png)
+  skin/images/errorpage-larry-black.png     (images/errorpage-larry-black.png)
+  skin/images/throbber.png                  (images/throbber.png)
+  skin/images/search-clear-30.png           (images/search-clear-30.png)
+  skin/images/play-hdpi.png                 (images/play-hdpi.png)
+  skin/images/pause-hdpi.png                (images/pause-hdpi.png)
+  skin/images/mute-hdpi.png                 (images/mute-hdpi.png)
+  skin/images/unmute-hdpi.png               (images/unmute-hdpi.png)
+  skin/images/scrubber-hdpi.png             (images/scrubber-hdpi.png)
+  skin/images/about-bg-lightblue.png        (images/about-bg-lightblue.png)
+  skin/images/about-bg-darkblue.png         (images/about-bg-darkblue.png)
+  skin/images/about-btn-darkgrey.png        (images/about-btn-darkgrey.png)
+  skin/images/logo-hdpi.png                 (images/logo-hdpi.png)
+  skin/images/wordmark-hdpi.png             (images/wordmark-hdpi.png)
+  skin/images/row-bg-light.png              (images/row-bg-light.png)
+  skin/images/row-bg-normal.png             (images/row-bg-normal.png)
+  skin/images/addons-amo-hdpi.png           (images/addons-amo-hdpi.png)
