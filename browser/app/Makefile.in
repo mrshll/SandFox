@@ -88,6 +88,8 @@ DEFINES += -DXPCOM_GLUE
 STL_FLAGS=
 
 LIBS += \
+	$(topsrcdir)/sandbox/sandbox.lib \
+	$(topsrcdir)/sandbox/base.lib \
 	$(EXTRA_DSO_LIBS) \
 	$(XPCOM_STANDALONE_GLUE_LDOPTS) \
 	$(NULL)
