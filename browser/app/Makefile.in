@@ -82,6 +82,7 @@ LOCAL_INCLUDES += \
   -I$(topsrcdir)/xpcom/base \
   -I$(topsrcdir)/xpcom/build \
   -I$(DEPTH)/build \
+  -I$(topsrcdir)/sandbox/include \
   $(NULL)
 
 DEFINES += -DXPCOM_GLUE
@@ -90,6 +91,13 @@ STL_FLAGS=
 LIBS += \
 	$(EXTRA_DSO_LIBS) \
 	$(XPCOM_STANDALONE_GLUE_LDOPTS) \
+	$(topsrcdir)/sandbox/lib/sandbox.lib \
+	$(topsrcdir)/sandbox/lib/base.lib \
+	$(topsrcdir)/sandbox/lib/base_static.lib \
+	$(topsrcdir)/sandbox/lib/dynamic_annotations.lib \
+	shell32.lib \
+	psapi.lib \
+	dbghelp.lib \
 	$(NULL)
 
 ifdef MOZ_LINKER

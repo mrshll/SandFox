@@ -64,6 +64,11 @@
 #define snprintf _snprintf
 #define strcasecmp _stricmp
 #endif
+
+#ifdef XP_WIN
+#include "sandbox_factory.h"
+#endif
+
 #include "BinaryPath.h"
 
 #include "nsXPCOMPrivate.h" // for MAXPATHLEN and XPCOM_DLL
@@ -193,6 +198,39 @@ static int do_main(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
   char exePath[MAXPATHLEN];
+
+  printf("Starting up... trying to initialize sandbox\n");
+
+  // TODO : i think chromium has some sort of union they
+  // use for passing the BrokerServices or TargetServices pointer,
+  // we should use this too.
+  sandbox::ResultCode resultCode;
+  sandbox::BrokerServices* broker_service =
+      sandbox::SandboxFactory::GetBrokerServices();
+  
+  if (NULL != broker_service) {
+    printf("Hello from the broker !\n");
+    if (0 != (resultCode = broker_service->Init())) {
+      printf("Broker failed to initialize\n");
+      return 255;
+    }
+
+    printf("Looks like broker successfully initialized\n");
+    // after we spawn the target, we will want to enter the event
+    // loop, we do this with : 
+    // broker_service->WaitForAllTargets();
+  }
+  else {
+    sandbox::TargetServices* target_service
+        = sandbox::SandboxFactory::GetTargetServices();
+
+    if (NULL == target_service) {
+      printf("Failed to get target services !!");
+      return -255;
+    }
+
+    printf("Hello from the target !\n");
+  }
 
 #ifdef XP_MACOSX
   TriggerQuirks();

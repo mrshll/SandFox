@@ -73,6 +73,7 @@ endif
 
 LOCAL_INCLUDES += -I$(topsrcdir)/widget/windows
 LOCAL_INCLUDES += -I$(topsrcdir)/xpcom/base
+LOCAL_INCLUDES += -I$(topsrcdir)/sandbox/include
 endif
 
 ifneq (,$(filter WINNT OS2,$(OS_ARCH)))
@@ -422,7 +423,7 @@ GARBAGE += \
   $(NULL)
 
 LOCAL_INCLUDES += -I$(topsrcdir)/intl/unicharutil/util \
-  -I$(topsrcdir)/intl/unicharutil/src
+  -I$(topsrcdir)/intl/unicharutil/src \
 
 ifneq (,$(filter OS2 WINNT,$(OS_ARCH)))
 SDK_LIBRARY = $(IMPORT_LIBRARY)
