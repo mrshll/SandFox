@@ -2,14 +2,20 @@
 
 # Filenames that should be ignored wherever they appear
 ~$
-\.py(c|o)$
-(?i)(^|/)TAGS$
-(^|/)ID$
-(^|/)\.DS_Store$
+
+#\.py(c|o)$
+
+*.pyc
+
+/objdir-dbg
+
+#(?i)(^|/)TAGS$
+#(^|/)ID$
+#(^|/)\.DS_Store$
 
 # Vim swap files.
-^\.sw.$
-.[^/]*\.sw.$
+#^\.sw.$
+#.[^/]*\.sw.$
 
 # User files that may appear at the root
 ^\.mozconfig
@@ -26,8 +32,8 @@
 ^obj
 
 # Build directories for js shell
-_DBG\.OBJ/
-_OPT\.OBJ/
+#_DBG\.OBJ/
+#_OPT\.OBJ/
 
 # SpiderMonkey configury
 ^js/src/configure$
@@ -39,12 +45,12 @@ _OPT\.OBJ/
 ^parser/html/java/(html|java)parser/
 
 # SVN directories
-\.svn/
+#\.svn/
 
 # HG directories
 \.hg
 
 # Ignore the files and directory that Eclipse IDE creates
-\.project$
-\.cproject$
-\.settings/
+#\.project$
+#\.cproject$
+#\.settings/
