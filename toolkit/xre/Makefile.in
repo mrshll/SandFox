@@ -195,6 +195,7 @@ LOCAL_INCLUDES += \
   -I$(topsrcdir)/toolkit/crashreporter \
   -I$(topsrcdir)/dom/base \
   -I$(topsrcdir)/xpcom/build \
+  -I$(topsrcdir)/sandbox/include \
   $(NULL)
 
 LOCAL_INCLUDES += \
