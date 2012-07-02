@@ -105,7 +105,6 @@ LOCAL_INCLUDES	= \
 		-I$(srcdir)/../reflect/xptinfo/src \
 		-I$(topsrcdir)/chrome/src \
 		-I$(srcdir)/../../docshell/base \
-		-I$(topsrcdir)/sandbox/include \
 		$(NULL)
 
 EXPORTS_NAMESPACES = mozilla

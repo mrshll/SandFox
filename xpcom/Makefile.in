@@ -67,6 +67,10 @@ DIRS		+= windbgdlg
 endif
 endif
 
+LOCAL_INCLUDES += \
+  -I$(topsrcdir)/sandbox/include \
+  $(NULL)
+
 ifdef ENABLE_TESTS
 TOOL_DIRS += \
 	tests \
