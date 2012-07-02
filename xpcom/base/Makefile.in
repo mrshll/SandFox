@@ -183,4 +183,5 @@ endif
 LOCAL_INCLUDES += \
 		-I$(srcdir)/../build \
 		-I$(topsrcdir)/xpcom/ds \
+		-I$(topsrcdir)/sandbox/include \
 		$(NULL)
