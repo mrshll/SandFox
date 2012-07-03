@@ -108,6 +108,10 @@ STATIC_LIBS += \
   gfxipc_s \
   hal_s \
   dombindings_s \
+  $(topsrcdir)/sandbox/lib/sandbox.lib \
+  $(topsrcdir)/sandbox/lib/base.lib \
+  $(topsrcdir)/sandbox/lib/base_static.lib \
+  $(topsrcdir)/sandbox/lib/dynamic_annotations.lib \
   $(NULL)
 
 ifdef MOZ_B2G_RIL #{
@@ -370,7 +374,7 @@ ifdef MOZ_NATIVE_LIBVPX
 EXTRA_DSO_LDOPTS += $(MOZ_LIBVPX_LIBS)
 endif
 
-EXTRA_DSO_LDOPTS += $(call EXPAND_LIBNAME_PATH,gkmedias,$(DIST)/lib) 
+EXTRA_DSO_LDOPTS += $(call EXPAND_LIBNAME_PATH,gkmedias,$(DIST)/lib)
 
 ifdef MOZ_SYDNEYAUDIO
 ifeq ($(OS_ARCH),Linux)
