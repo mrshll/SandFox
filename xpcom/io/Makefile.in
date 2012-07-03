@@ -1,4 +1,4 @@
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Version: MPL 1.1/GPL 2.0/LGPL 2.1
 #
@@ -50,7 +50,7 @@ MOZILLA_INTERNAL_API = 1
 LIBXUL_LIBRARY  = 1
 
 # work around bug 408258
-ifdef GNU_CC 
+ifdef GNU_CC
 ifneq ($(OS_ARCH), Darwin)
 MODULE_OPTIMIZE_FLAGS = $(MOZ_OPTIMIZE_FLAGS) -fno-strict-aliasing
 endif
@@ -110,7 +110,7 @@ EXPORTS		= \
 		nsStringStream.h \
 		nsStreamUtils.h \
 		nsWildCard.h \
-		$(NULL)			
+		$(NULL)
 
 ifeq ($(MOZ_WIDGET_TOOLKIT),os2)
 EXPORTS		+= nsLocalFileOS2.h
@@ -194,7 +194,8 @@ DEFINES     += -DHAVE_USR_LIB64_DIR
 endif
 endif
 
-LOCAL_INCLUDES	+= -I..
+LOCAL_INCLUDES	+= -I.. \
+  -I$(topsrcdir)/sandbox/include \
 
 ifeq ($(MOZ_PLATFORM_MAEMO),5)
 CFLAGS          += $(MOZ_DBUS_CFLAGS)
