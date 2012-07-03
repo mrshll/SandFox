@@ -45,6 +45,19 @@ include $(DEPTH)/config/autoconf.mk
 MODULE		= xpcom
 GRE_MODULE	= 1
 
+
+
+LOCAL_INCLUDES	= \
+		-I$(topsrcdir)/sandbox/include \
+		$(NULL)
+
+LIBS += \
+	$(topsrcdir)/sandbox/lib/sandbox.lib \
+	$(topsrcdir)/sandbox/lib/base.lib \
+	$(topsrcdir)/sandbox/lib/base_static.lib \
+	$(topsrcdir)/sandbox/lib/dynamic_annotations.lib \
+	$(NULL)
+
 DIRS		= \
 		idl-parser \
 		typelib \
