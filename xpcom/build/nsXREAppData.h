@@ -42,7 +42,7 @@
 
 #include "mozilla/StandardInteger.h"
 #ifdef XP_WIN
-#include "sandbox.h"
+#include "sandbox_factory.h"
 #endif
 
 class nsILocalFile;
