@@ -90,8 +90,7 @@ XPIDLSRCS	= \
 
 EXPORTS		:= $(addprefix $(srcdir)/, $(EXPORTS))
 
-LOCAL_INCLUDES	= -I$(srcdir)/../components \
-		  -I$(topsrcdir)/sandbox/include \
+LOCAL_INCLUDES	= -I$(srcdir)/../components
 
 # we don't want the shared lib, but we want to force the creation of a static lib.
 FORCE_STATIC_LIB = 1
