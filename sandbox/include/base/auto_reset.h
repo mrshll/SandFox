@@ -6,7 +6,7 @@
 #define BASE_AUTO_RESET_H_
 #pragma once
 
-#include "base/basictypes.h"
+
 
 // AutoReset<> is useful for setting a variable to a new value only within a
 // particular scope. An AutoReset<> object resets a variable to its original

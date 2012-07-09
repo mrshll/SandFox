@@ -8,7 +8,7 @@
 
 #include <map>
 
-#include "base/basictypes.h"
+
 #include "base/base_export.h"
 
 template <typename T> class linked_ptr;

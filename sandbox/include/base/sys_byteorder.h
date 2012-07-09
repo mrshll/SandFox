@@ -11,7 +11,7 @@
 #ifndef BASE_SYS_BYTEORDER_H_
 #define BASE_SYS_BYTEORDER_H_
 
-#include "base/basictypes.h"
+
 #include "build/build_config.h"
 
 #if defined(OS_WIN)

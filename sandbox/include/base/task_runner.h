@@ -7,7 +7,7 @@
 #pragma once
 
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 #include "base/callback_forward.h"
 #include "base/memory/ref_counted.h"
 #include "base/time.h"

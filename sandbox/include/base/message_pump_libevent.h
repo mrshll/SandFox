@@ -6,7 +6,7 @@
 #define BASE_MESSAGE_PUMP_LIBEVENT_H_
 #pragma once
 
-#include "base/basictypes.h"
+
 #include "base/compiler_specific.h"
 #include "base/memory/weak_ptr.h"
 #include "base/message_pump.h"

@@ -8,7 +8,7 @@
 #define BASE_BITS_H_
 #pragma once
 
-#include "base/basictypes.h"
+
 #include "base/logging.h"
 
 namespace base {

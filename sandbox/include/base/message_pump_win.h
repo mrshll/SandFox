@@ -11,7 +11,7 @@
 #include <list>
 
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 #include "base/message_pump.h"
 #include "base/message_pump_dispatcher.h"
 #include "base/message_pump_observer.h"

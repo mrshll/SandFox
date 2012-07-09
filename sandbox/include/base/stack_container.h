@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "base/basictypes.h"
+
 #include "build/build_config.h"
 #include "base/memory/aligned_memory.h"
 

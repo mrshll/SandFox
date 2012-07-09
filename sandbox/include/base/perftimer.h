@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "base/basictypes.h"
+
 #include "base/time.h"
 
 class FilePath;

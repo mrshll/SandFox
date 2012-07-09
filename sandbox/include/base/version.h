@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 
 // Version represents a dotted version number, like "1.2.3.4", supporting
 // parsing and comparison.

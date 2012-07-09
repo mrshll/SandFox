@@ -10,7 +10,7 @@
 // data.  Because the receiving is blocking, they can be used to perform
 // rudimentary cross-process synchronization with low latency.
 
-#include "base/basictypes.h"
+
 #if defined(OS_WIN)
 #include <windows.h>
 #endif

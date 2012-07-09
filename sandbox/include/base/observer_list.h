@@ -10,7 +10,7 @@
 #include <limits>
 #include <vector>
 
-#include "base/basictypes.h"
+
 #include "base/logging.h"
 #include "base/memory/weak_ptr.h"
 

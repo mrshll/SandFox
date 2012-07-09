@@ -40,7 +40,7 @@
 
 #include "base/atomicops.h"
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 #include "base/logging.h"
 #include "base/memory/aligned_memory.h"
 #include "base/third_party/dynamic_annotations/dynamic_annotations.h"

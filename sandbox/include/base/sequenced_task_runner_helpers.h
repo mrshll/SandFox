@@ -6,7 +6,7 @@
 #define BASE_SEQUENCED_TASK_RUNNER_HELPERS_H_
 #pragma once
 
-#include "base/basictypes.h"
+
 
 // TODO(akalin): Investigate whether it's possible to just have
 // SequencedTaskRunner use these helpers (instead of MessageLoop).

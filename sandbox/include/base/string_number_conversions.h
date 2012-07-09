@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 #include "base/string_piece.h"
 #include "base/string16.h"
 

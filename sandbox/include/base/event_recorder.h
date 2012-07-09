@@ -7,7 +7,7 @@
 #pragma once
 
 #include "base/base_export.h"
-#include "base/basictypes.h"
+
 #include "build/build_config.h"
 
 #if defined(OS_WIN)
