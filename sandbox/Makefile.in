@@ -36,26 +36,19 @@
 #
 # ***** END LICENSE BLOCK *****
 
-DEPTH		= ../
-topsrcdir	= @top_srcdir@
-srcdir		= @srcdir@
-VPATH		= @srcdir@
+DEPTH           = ../
+topsrcdir       = @top_srcdir@
+srcdir          = @srcdir@
+VPATH           = @srcdir@
 
 include $(DEPTH)/config/autoconf.mk
-
 MODULE		= sandbox
-LIBRARY_NAME	= sandboxlib #??
-SHORT_LIBNAME	= sboxlib
-LIBXUL_LIBRARY = 1
-EXPORT_LIBRARY = 1
-
-GRE_MODULE	= 1
-MOZILLA_INTERNAL_API = 1
-
 
 ifeq ($(OS_ARCH),WINNT)
 EXPORTS	= \
   include/sandbox.h \
   $(NULL)
 endif
+
+include $(topsrcdir)/config/rules.mk
 
