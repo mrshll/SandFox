@@ -50,6 +50,7 @@ EXPORTS	= \
   include/sandbox_policy.h \
   include/sandbox_types.h \
   include/security_level.h \
+  base/memory/ref_counted.h \
   $(NULL)
 endif
 
