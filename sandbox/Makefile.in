@@ -58,7 +58,7 @@ MOZILLA_INTERNAL_API = 1
 
 ifeq ($(OS_ARCH),WINNT)
 EXPORTS	= \
-  sandbox.h \
+  include/sandbox.h \
   $(NULL)
 endif
 
