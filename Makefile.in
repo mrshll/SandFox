@@ -59,6 +59,7 @@ TIERS += base
 # tier "base" - basic setup
 #
 tier_base_dirs = \
+  sanbox\
   config \
   build \
   probes \
