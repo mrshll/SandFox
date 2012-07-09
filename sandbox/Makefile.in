@@ -42,6 +42,9 @@ srcdir		= @srcdir@
 VPATH		= @srcdir@
 
 include $(DEPTH)/config/autoconf.mk
+include $(srcdir)/../glue/objs.mk
+
+EXTRA_DEPS += $(srcdir)/../glue/objs.mk
 
 MODULE		= sandbox
 LIBRARY_NAME	= sandboxlib #??
