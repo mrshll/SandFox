@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_HANDLE_CLOSER_AGENT_H_
 #define SANDBOX_SRC_HANDLE_CLOSER_AGENT_H_
 
-#include "base/basictypes.h"
+
 #include "base/string16.h"
 #include "sandbox/src/handle_closer.h"
 #include "sandbox/src/sandbox_types.h"

@@ -9,7 +9,7 @@
 #include <windows.h>
 #include <vector>
 
-#include "base/basictypes.h"
+
 #include "base/string16.h"
 #include "sandbox/src/nt_internals.h"
 

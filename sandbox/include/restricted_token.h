@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <vector>
 
-#include "base/basictypes.h"
+
 #include "sandbox/src/restricted_token_utils.h"
 #include "sandbox/src/security_level.h"
 #include "sandbox/src/sid.h"
