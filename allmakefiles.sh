@@ -80,6 +80,7 @@ fi
 
 if [ "$OS_ARCH" = "WINNT" ]; then
   add_makefiles "
+    sandbox/Makefile
     build/win32/Makefile
     build/win32/crashinjectdll/Makefile
   "
@@ -122,7 +123,7 @@ if [ "$ENABLE_TESTS" ]; then
     config/tests/makefiles/autodeps/Makefile
     config/tests/src-simple/Makefile
   "
-  if [ ! "$LIBXUL_SDK" ]; then 
+  if [ ! "$LIBXUL_SDK" ]; then
     add_makefiles "
       mozglue/tests/Makefile
     "
@@ -132,7 +133,7 @@ if [ "$ENABLE_TESTS" ]; then
       build/win32/vmwarerecordinghelper/Makefile
     "
   fi
-  if [ "$OS_ARCH" != "WINNT" -a "$OS_ARCH" != "OS2" ]; then 
+  if [ "$OS_ARCH" != "WINNT" -a "$OS_ARCH" != "OS2" ]; then
     add_makefiles "
       build/unix/test/Makefile
     "
