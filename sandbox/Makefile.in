@@ -47,6 +47,8 @@ MODULE		= sandbox
 ifeq ($(OS_ARCH),WINNT)
 EXPORTS	= \
   include/sandbox.h \
+  include/sandbox_policy.h \
+  include/sandbox_types.h \
   $(NULL)
 endif
 
