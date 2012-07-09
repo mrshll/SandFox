@@ -49,6 +49,7 @@ EXPORTS	= \
   include/sandbox.h \
   include/sandbox_policy.h \
   include/sandbox_types.h \
+  include/security_level.h \
   $(NULL)
 endif
 
