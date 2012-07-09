@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_SHARED_HANDLES_H__
 #define SANDBOX_SRC_SHARED_HANDLES_H__
 
-
+#include "base/basictypes.h"
 
 #ifndef HANDLE
 // We can provide our own windows compatilble handle definition, but

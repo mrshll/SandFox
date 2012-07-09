@@ -7,7 +7,7 @@
 
 #include <list>
 
-
+#include "base/basictypes.h"
 #include "sandbox/src/ipc_tags.h"
 #include "sandbox/src/policy_engine_params.h"
 #include "sandbox/src/policy_engine_opcodes.h"

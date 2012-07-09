@@ -7,7 +7,7 @@
 
 #include <windows.h>
 
-
+#include "base/basictypes.h"
 #include "sandbox/src/sandbox_types.h"
 
 namespace sandbox {

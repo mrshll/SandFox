@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_NAMED_PIPE_DISPATCHER_H__
 #define SANDBOX_SRC_NAMED_PIPE_DISPATCHER_H__
 
-
+#include "base/basictypes.h"
 #include "sandbox/src/crosscall_server.h"
 #include "sandbox/src/sandbox_policy_base.h"
 

@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <string>
 
-
+#include "base/basictypes.h"
 #include "sandbox/src/nt_internals.h"
 
 namespace sandbox {

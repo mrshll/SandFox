@@ -7,7 +7,7 @@
 
 #include <string>
 
-
+#include "base/basictypes.h"
 #include "sandbox/src/crosscall_server.h"
 #include "sandbox/src/nt_internals.h"
 #include "sandbox/src/policy_low_level.h"
