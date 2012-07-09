@@ -8,7 +8,7 @@
 #include <list>
 #include <map>
 #include <set>
-
+#include "base/basictypes.h"
 #include "base/win/scoped_handle.h"
 #include "sandbox/src/crosscall_server.h"
 #include "sandbox/src/job.h"

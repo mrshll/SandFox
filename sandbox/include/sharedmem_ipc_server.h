@@ -7,7 +7,7 @@
 
 #include <list>
 
-
+#include "base/basictypes.h"
 #include "base/gtest_prod_util.h"
 #include "sandbox/src/crosscall_params.h"
 #include "sandbox/src/crosscall_server.h"

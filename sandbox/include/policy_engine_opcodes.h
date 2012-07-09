@@ -6,7 +6,7 @@
 #define SANDBOX_SRC_POLICY_ENGINE_OPCODES_H__
 
 #include "sandbox/src/policy_engine_params.h"
-
+#include "base/basictypes.h"
 
 // The low-level policy is implemented using the concept of policy 'opcodes'.
 // An opcode is a structure that contains enough information to perform one
