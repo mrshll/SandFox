@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_POLICY_ENGINE_PARAMS_H__
 #define SANDBOX_SRC_POLICY_ENGINE_PARAMS_H__
 
-#include "base/basictypes.h"
+
 #include "sandbox/src/internal_types.h"
 #include "sandbox/src/nt_internals.h"
 #include "sandbox/src/sandbox_nt_util.h"

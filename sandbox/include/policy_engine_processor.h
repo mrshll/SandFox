@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_POLICY_ENGINE_PROCESSOR_H__
 #define SANDBOX_SRC_POLICY_ENGINE_PROCESSOR_H__
 
-#include "base/basictypes.h"
+
 #include "sandbox/src/policy_engine_params.h"
 #include "sandbox/src/policy_engine_opcodes.h"
 
