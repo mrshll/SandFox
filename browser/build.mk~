@@ -55,6 +55,8 @@ ifdef MOZ_WEBAPP_RUNTIME
 tier_app_dirs += webapprt
 endif
 
+tier_app_dirs += sandbox
+
 tier_app_dirs += browser
 # Never add other tier_app_dirs after browser. They won't get packaged
 # properly on mac.

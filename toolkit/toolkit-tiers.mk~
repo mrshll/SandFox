@@ -52,8 +52,6 @@ ifdef MOZ_TREE_FREETYPE
 tier_platform_staticdirs += modules/freetype2
 endif
 
-tier_platform_dirs += sandbox
-
 tier_platform_dirs += xpcom
 
 ifndef MOZ_NATIVE_ZLIB
