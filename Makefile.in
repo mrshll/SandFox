@@ -59,7 +59,6 @@ TIERS += base
 # tier "base" - basic setup
 #
 tier_base_dirs = \
-  sandbox\
   config \
   build \
   probes \

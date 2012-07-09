@@ -80,7 +80,6 @@ fi
 
 if [ "$OS_ARCH" = "WINNT" ]; then
   add_makefiles "
-    sandbox/Makefile
     build/win32/Makefile
     build/win32/crashinjectdll/Makefile
   "
@@ -148,6 +147,10 @@ if [ "$ENABLE_TESTS" ]; then
     "
   fi
 fi
+
+add_makefiles "
+  sandbox/Makefile
+"
 
 # Application-specific makefiles
 if [ -f "${srcdir}/${MOZ_BUILD_APP}/makefiles.sh" ]; then
