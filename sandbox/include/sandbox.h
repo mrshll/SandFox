@@ -21,7 +21,6 @@
 
 #include <windows.h>
 
-#include "basictypes.h"
 #include "sandbox_policy.h"
 #include "sandbox_types.h"
 
