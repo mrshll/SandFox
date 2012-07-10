@@ -40,7 +40,7 @@
 #ifndef _nsXULAppAPI_h__
 #define _nsXULAppAPI_h__
 
-#include "basictypes.h"
+#include "base/basictypes.h"
 #include "prtypes.h"
 #include "nsID.h"
 #include "xrecore.h"

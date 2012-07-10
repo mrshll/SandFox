@@ -35,6 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+#include "base/basictypes.h"
 #include "mozilla/HangMonitor.h"
 #include "mozilla/Monitor.h"
 #include "mozilla/Preferences.h"
