@@ -35,8 +35,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "base/basictypes.h"
-
 #ifndef nsXPCOM_h__
 #include "nsXPCOM.h"
 #endif

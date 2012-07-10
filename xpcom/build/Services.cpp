@@ -36,7 +36,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "base/basictypes.h"
 #include "mozilla/Services.h"
 #include "nsComponentManager.h"
 #include "nsIIOService.h"
