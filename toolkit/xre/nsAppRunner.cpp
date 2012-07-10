@@ -2748,7 +2748,7 @@ public:
   }
 
   int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
-                                     sandbox::SandboxInterfaceInfo* sandboxInf);
+                                      sandbox::SandboxInterfaceInfo* targetServices);
 
   int XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag);
   int XRE_mainStartup(bool* aExitFlag);
