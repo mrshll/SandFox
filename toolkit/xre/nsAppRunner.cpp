@@ -397,7 +397,7 @@ static void Output(bool isError, const char *fmt, ... )
     UINT flags = MB_OK;
     if (isError)
       flags |= MB_ICONERROR;
-    else 
+    else
       flags |= MB_ICONINFORMATION;
 
     wchar_t wide_msg[1024];
@@ -621,7 +621,7 @@ NS_INTERFACE_MAP_BEGIN(nsXULAppInfo)
 #ifdef MOZ_CRASHREPORTER
   NS_INTERFACE_MAP_ENTRY(nsICrashReporter)
 #endif
-  NS_INTERFACE_MAP_ENTRY_CONDITIONAL(nsIXULAppInfo, gAppData || 
+  NS_INTERFACE_MAP_ENTRY_CONDITIONAL(nsIXULAppInfo, gAppData ||
                                      XRE_GetProcessType() == GeckoProcessType_Content)
 NS_INTERFACE_MAP_END
 
@@ -800,13 +800,13 @@ NS_IMETHODIMP
 nsXULAppInfo::InvalidateCachesOnRestart()
 {
   nsCOMPtr<nsIFile> file;
-  nsresult rv = NS_GetSpecialDirectory(NS_APP_PROFILE_DIR_STARTUP, 
+  nsresult rv = NS_GetSpecialDirectory(NS_APP_PROFILE_DIR_STARTUP,
                                        getter_AddRefs(file));
   if (NS_FAILED(rv))
     return rv;
   if (!file)
     return NS_ERROR_NOT_AVAILABLE;
-  
+
   file->AppendNative(FILE_COMPATIBILITY_INFO);
 
   nsCOMPtr<nsILocalFile> localFile(do_QueryInterface(file));
@@ -817,10 +817,10 @@ nsXULAppInfo::InvalidateCachesOnRestart()
     // flush the caches on the next restart anyways.
     return NS_OK;
   }
-  
+
   nsCAutoString buf;
   rv = parser.GetString("Compatibility", "InvalidateCaches", buf);
-  
+
   if (NS_FAILED(rv)) {
     PRFileDesc *fd = nsnull;
     localFile->OpenNSPRFileDesc(PR_RDWR | PR_APPEND, 0600, &fd);
@@ -831,7 +831,7 @@ nsXULAppInfo::InvalidateCachesOnRestart()
     static const char kInvalidationHeader[] = NS_LINEBREAK "InvalidateCaches=1" NS_LINEBREAK;
     rv = PR_Write(fd, kInvalidationHeader, sizeof(kInvalidationHeader) - 1);
     PR_Close(fd);
-    
+
     if (NS_FAILED(rv))
       return rv;
   }
@@ -850,7 +850,7 @@ nsXULAppInfo::GetReplacedLockTime(PRInt64 *aReplacedLockTime)
 #ifdef XP_WIN
 // Matches the enum in WinNT.h for the Vista SDK but renamed so that we can
 // safely build with the Vista SDK and without it.
-typedef enum 
+typedef enum
 {
   VistaTokenElevationTypeDefault = 1,
   VistaTokenElevationTypeFull,
@@ -867,21 +867,21 @@ nsXULAppInfo::GetUserCanElevate(bool *aUserCanElevate)
   HANDLE hToken;
 
   VISTA_TOKEN_ELEVATION_TYPE elevationType;
-  DWORD dwSize; 
+  DWORD dwSize;
 
   if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken) ||
       !GetTokenInformation(hToken, VistaTokenElevationType, &elevationType,
                            sizeof(elevationType), &dwSize)) {
     *aUserCanElevate = false;
-  } 
+  }
   else {
     // The possible values returned for elevationType and their meanings are:
-    //   TokenElevationTypeDefault: The token does not have a linked token 
+    //   TokenElevationTypeDefault: The token does not have a linked token
     //     (e.g. UAC disabled or a standard user, so they can't be elevated)
-    //   TokenElevationTypeFull: The token is linked to an elevated token 
+    //   TokenElevationTypeFull: The token is linked to an elevated token
     //     (e.g. UAC is enabled and the user is already elevated so they can't
     //      be elevated again)
-    //   TokenElevationTypeLimited: The token is linked to a limited token 
+    //   TokenElevationTypeLimited: The token is linked to a limited token
     //     (e.g. UAC is enabled and the user is not elevated, so they can be
     //      elevated)
     *aUserCanElevate = (elevationType == VistaTokenElevationTypeLimited);
@@ -975,7 +975,7 @@ nsXULAppInfo::SetServerURL(nsIURL* aServerURL)
   nsCAutoString spec;
   rv = aServerURL->GetSpec(spec);
   NS_ENSURE_SUCCESS(rv, rv);
-  
+
   return CrashReporter::SetServerURL(spec);
 }
 
@@ -1273,7 +1273,7 @@ ScopedXPCOMStartup::SetWindowCreator(nsINativeAppSupport* native)
   nsCOMPtr<nsIWindowWatcher> wwatch
     (do_GetService(NS_WINDOWWATCHER_CONTRACTID, &rv));
   NS_ENSURE_SUCCESS(rv, rv);
-  
+
   NS_TIME_FUNCTION_MARK("Got WindowWatcher service");
 
   return wwatch->SetWindowCreator(creator);
@@ -1379,7 +1379,7 @@ DumpHelp()
 static inline void
 DumpVersion()
 {
-  printf("%s %s %s", 
+  printf("%s %s %s",
          gAppData->vendor ? gAppData->vendor : "", gAppData->name, gAppData->version);
   if (gAppData->copyright)
       printf(", %s", gAppData->copyright);
@@ -1476,7 +1476,7 @@ RemoteCommandLine(const char* aDesktopStartupID)
   rv = client.Init();
   if (NS_FAILED(rv))
     return REMOTE_NOT_FOUND;
- 
+
   nsXPIDLCString response;
   bool success = false;
   rv = client.SendCommandLine(program.get(), username, nsnull,
@@ -1736,9 +1736,9 @@ ProfileLockedDialog(nsILocalFile* aProfileDir, nsILocalFile* aProfileLocalDir,
 
     if (aUnlocker) {
       const PRUint32 flags =
-        (nsIPromptService::BUTTON_TITLE_CANCEL * 
+        (nsIPromptService::BUTTON_TITLE_CANCEL *
          nsIPromptService::BUTTON_POS_0) +
-        (nsIPromptService::BUTTON_TITLE_IS_STRING * 
+        (nsIPromptService::BUTTON_TITLE_IS_STRING *
          nsIPromptService::BUTTON_POS_1) +
         nsIPromptService::BUTTON_POS_1_DEFAULT;
 
@@ -1747,16 +1747,16 @@ ProfileLockedDialog(nsILocalFile* aProfileDir, nsILocalFile* aProfileLocalDir,
       // malformed JSBools to XPConnect.
       bool checkState = false;
       rv = ps->ConfirmEx(nsnull, killTitle, killMessage, flags,
-                         killTitle, nsnull, nsnull, nsnull, 
+                         killTitle, nsnull, nsnull, nsnull,
                          &checkState, &button);
       NS_ENSURE_SUCCESS_LOG(rv, rv);
 
       if (button == 1) {
         rv = aUnlocker->Unlock(nsIProfileUnlocker::FORCE_QUIT);
-        if (NS_FAILED(rv)) 
+        if (NS_FAILED(rv))
           return rv;
 
-        return NS_LockProfilePath(aProfileDir, aProfileLocalDir, 
+        return NS_LockProfilePath(aProfileDir, aProfileLocalDir,
                                   nsnull, aResult);
       }
     } else {
@@ -1784,29 +1784,29 @@ ProfileMissingDialog(nsINativeAppSupport* aNative)
     nsCOMPtr<nsIStringBundleService> sbs =
       mozilla::services::GetStringBundleService();
     NS_ENSURE_TRUE(sbs, NS_ERROR_FAILURE);
-  
+
     nsCOMPtr<nsIStringBundle> sb;
     sbs->CreateBundle(kProfileProperties, getter_AddRefs(sb));
     NS_ENSURE_TRUE_LOG(sbs, NS_ERROR_FAILURE);
-  
+
     NS_ConvertUTF8toUTF16 appName(gAppData->name);
     const PRUnichar* params[] = {appName.get(), appName.get()};
-  
+
     nsXPIDLString missingMessage;
-  
-    // profileMissing  
+
+    // profileMissing
     static const PRUnichar kMissing[] = {'p','r','o','f','i','l','e','M','i','s','s','i','n','g','\0'};
     sb->FormatStringFromName(kMissing, params, 2, getter_Copies(missingMessage));
-  
+
     nsXPIDLString missingTitle;
     sb->FormatStringFromName(NS_LITERAL_STRING("profileMissingTitle").get(),
                              params, 1, getter_Copies(missingTitle));
-  
+
     if (missingMessage && missingTitle) {
       nsCOMPtr<nsIPromptService> ps
         (do_GetService(NS_PROMPTSERVICE_CONTRACTID));
       NS_ENSURE_TRUE(ps, NS_ERROR_FAILURE);
-  
+
       ps->Alert(nsnull, missingTitle, missingMessage);
     }
 
@@ -2120,7 +2120,7 @@ SelectProfile(nsIProfileLock* *aResult, nsIToolkitProfileService* aProfileSvc, n
         PR_fprintf(PR_STDERR, "Error: profile path not valid.\n");
         return rv;
       }
-      
+
       // As with -profile, assume that the given path will be used for both the
       // main profile directory and the temp profile directory.
       rv = aProfileSvc->CreateProfile(lf, lf, nsDependentCSubstring(arg, delim),
@@ -2132,9 +2132,9 @@ SelectProfile(nsIProfileLock* *aResult, nsIToolkitProfileService* aProfileSvc, n
     // Some pathological arguments can make it this far
     if (NS_FAILED(rv)) {
       PR_fprintf(PR_STDERR, "Error creating profile.\n");
-      return rv; 
+      return rv;
     }
-    rv = NS_ERROR_ABORT;  
+    rv = NS_ERROR_ABORT;
     aProfileSvc->Flush();
 
     // XXXben need to ensure prefs.js exists here so the tinderboxes will
@@ -2293,17 +2293,17 @@ SelectProfile(nsIProfileLock* *aResult, nsIToolkitProfileService* aProfileSvc, n
   return ShowProfileManager(aProfileSvc, aNative);
 }
 
-/** 
+/**
  * Checks the compatibility.ini file to see if we have updated our application
- * or otherwise invalidated our caches. If the application has been updated, 
- * we return false; otherwise, we return true. We also write the status 
+ * or otherwise invalidated our caches. If the application has been updated,
+ * we return false; otherwise, we return true. We also write the status
  * of the caches (valid/invalid) into the return param aCachesOK. The aCachesOK
- * is always invalid if the application has been updated. 
+ * is always invalid if the application has been updated.
  */
 static bool
 CheckCompatibility(nsIFile* aProfileDir, const nsCString& aVersion,
                    const nsCString& aOSABI, nsIFile* aXULRunnerDir,
-                   nsIFile* aAppDir, nsILocalFile* aFlagFile, 
+                   nsIFile* aAppDir, nsILocalFile* aFlagFile,
                    bool* aCachesOK)
 {
   *aCachesOK = false;
@@ -2361,7 +2361,7 @@ CheckCompatibility(nsIFile* aProfileDir, const nsCString& aVersion,
   // If we see this flag, caches are invalid.
   rv = parser.GetString("Compatibility", "InvalidateCaches", buf);
   *aCachesOK = (NS_FAILED(rv) || !buf.EqualsLiteral("1"));
-  
+
   bool purgeCaches = false;
   if (aFlagFile) {
     aFlagFile->Exists(&purgeCaches);
@@ -2459,7 +2459,7 @@ static void RemoveComponentRegistries(nsIFile* aProfileDir, nsIFile* aLocalProfi
 
   file->AppendNative(NS_LITERAL_CSTRING("XUL" PLATFORM_FASL_SUFFIX));
   file->Remove(false);
-  
+
   file->SetNativeLeafName(NS_LITERAL_CSTRING("XPC" PLATFORM_FASL_SUFFIX));
   file->Remove(false);
 
@@ -2504,7 +2504,7 @@ static void MakeOrSetMinidumpPath(nsIFile* profD)
 {
   nsCOMPtr<nsIFile> dumpD;
   nsresult rv = profD->Clone(getter_AddRefs(dumpD));
-  
+
   if(dumpD) {
     bool fileExists;
     //XXX: do some more error checking here
@@ -2638,7 +2638,7 @@ static void MOZ_gdk_display_close(GdkDisplay *display)
 }
 #endif // MOZ_WIDGET_GTK2
 
-/** 
+/**
  * NSPR will search for the "nspr_use_zone_allocator" symbol throughout
  * the process and use it to determine whether the application defines its own
  * memory allocator or not.
@@ -2747,11 +2747,13 @@ public:
     }
   }
 
-  int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData, sandbox::BrokerServices* brokerServices, sandbox::TargetServices* targetServices);
+  int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
+                                      sandbox::SandboxInterfaceInfo* targetServices);
+
   int XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag);
   int XRE_mainStartup(bool* aExitFlag);
   nsresult XRE_mainRun();
-  
+
   nsCOMPtr<nsINativeAppSupport> mNativeApp;
   nsCOMPtr<nsIToolkitProfileService> mProfileSvc;
   nsCOMPtr<nsILocalFile> mProfD;
@@ -2838,7 +2840,7 @@ XREMain::XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag)
     // manual font file I/O on _all_ system fonts.  To avoid this, load the
     // dwrite library and create a factory as early as possible so that the
     // FntCache service is ready by the time it's needed.
-      
+
     OSVERSIONINFO vinfo;
     vinfo.dwOSVersionInfoSize = sizeof(vinfo);
     if (GetVersionEx(&vinfo) && vinfo.dwMajorVersion >= 6) {
@@ -2923,7 +2925,7 @@ XREMain::XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag)
     rv = lf->GetParent(getter_AddRefs(greDir));
     if (NS_FAILED(rv))
       return 2;
-    
+
     rv = CallQueryInterface(greDir, &mAppData->xreDirectory);
     if (NS_FAILED(rv))
       return 2;
@@ -3062,7 +3064,7 @@ XREMain::XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag)
   for (i = 0; i < gArgc; ++i) {
     gRestartArgv[i] = gArgv[i];
   }
-  
+
   // Add the -override argument back (it is removed automatically be CheckArg) if there is one
   if (override) {
     gRestartArgv[gRestartArgc++] = const_cast<char*>("-override");
@@ -3070,7 +3072,7 @@ XREMain::XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag)
   }
 
   gRestartArgv[gRestartArgc] = nsnull;
-  
+
 
 #if defined(XP_OS2)
   bool StartOS2App(int aArgc, char **aArgv);
@@ -3142,7 +3144,7 @@ XREMain::XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag)
     *aExitFlag = true;
     return 0;
   }
-    
+
 #ifdef NS_TRACE_MALLOC
   gArgc = NS_TraceMallocStartupArgs(gArgc, gArgv);
 #endif
@@ -3214,7 +3216,7 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
 #endif
   QStringList nonQtArguments = qApp->arguments();
   gQtOnlyArgc = 1;
-  gQtOnlyArgv = (char**) malloc(sizeof(char*) 
+  gQtOnlyArgv = (char**) malloc(sizeof(char*)
                 * (gRestartArgc - nonQtArguments.size() + 2));
 
   // copy binary path
@@ -3304,7 +3306,7 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
   }
   gdk_display_manager_set_default_display (gdk_display_manager_get(),
                                            mGdkDisplay);
-    
+
   // g_set_application_name () is only defined in glib2.2 and higher.
   _g_set_application_name_fn _g_set_application_name =
     (_g_set_application_name_fn)FindFunction("g_set_application_name");
@@ -3454,13 +3456,13 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
   NS_NAMED_LITERAL_CSTRING(osABI, OS_TARGET "_UNKNOWN");
 #endif
 
-  // Check for version compatibility with the last version of the app this 
+  // Check for version compatibility with the last version of the app this
   // profile was started with.  The format of the version stamp is defined
   // by the BuildVersion function.
   // Also check to see if something has happened to invalidate our
   // fastload caches, like an extension upgrade or installation.
- 
-  // If we see .purgecaches, that means someone did a make. 
+
+  // If we see .purgecaches, that means someone did a make.
   // Re-register components to catch potential changes.
   // We only offer this in debug builds, though.
   nsCOMPtr<nsILocalFile> flagFile;
@@ -3476,7 +3478,7 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
   }
 
   bool cachesOK;
-  bool versionOK = CheckCompatibility(mProfD, version, osABI, 
+  bool versionOK = CheckCompatibility(mProfD, version, osABI,
                                       mDirProvider.GetGREDir(),
                                       mAppData->directory, flagFile,
                                       &cachesOK);
@@ -3486,10 +3488,10 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
   if (PR_GetEnv("MOZ_PURGE_CACHES")) {
     cachesOK = false;
   }
- 
+
   // Every time a profile is loaded by a build with a different version,
   // it updates the compatibility.ini file saying what version last wrote
-  // the fastload caches.  On subsequent launches if the version matches, 
+  // the fastload caches.  On subsequent launches if the version matches,
   // there is no need for re-registration.  If the user loads the same
   // profile in different builds the component registry must be
   // re-generated to prevent mysterious component loading failures.
@@ -3505,7 +3507,7 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
       // The new list of additional components directories is derived from
       // information in "extensions.ini".
       RemoveComponentRegistries(mProfD, mProfLD, false);
-        
+
       // Rewrite compatibility.ini to remove the flag
       WriteVersion(mProfD, version, osABI,
                    mDirProvider.GetGREDir(), mAppData->directory);
@@ -3515,7 +3517,7 @@ XREMain::XRE_mainStartup(bool* aExitFlag)
   else {
     // Remove caches, forcing component re-registration
     // with the default set of components (this disables any potentially
-    // troublesome incompatible XPCOM components). 
+    // troublesome incompatible XPCOM components).
     RemoveComponentRegistries(mProfD, mProfLD, true);
 
     // Write out version
@@ -3692,7 +3694,7 @@ XREMain::XRE_mainRun()
 
   SaveStateForAppInitiatedRestart();
 
-  // clear out any environment variables which may have been set 
+  // clear out any environment variables which may have been set
   // during the relaunch process now that we know we won't be relaunching.
   SaveToEnv("XRE_PROFILE_PATH=");
   SaveToEnv("XRE_PROFILE_LOCAL_PATH=");
@@ -3796,8 +3798,8 @@ XREMain::XRE_mainRun()
 /*
  * XRE_main - A class based main entry point used by most platforms.
  */
-int
-XREMain::XRE_main(int argc, char* argv[], const nsXREAppData* aAppData)
+int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
+                                     sandbox::SandboxInterfaceInfo* sandboxInf);
 {
   NS_TIME_FUNCTION;
   SAMPLER_INIT();
@@ -3881,7 +3883,7 @@ XREMain::XRE_main(int argc, char* argv[], const nsXREAppData* aAppData)
   delete mScopedXPCom;
   mScopedXPCom = nsnull;
 
-  // unlock the profile after ScopedXPCOMStartup object (xpcom) 
+  // unlock the profile after ScopedXPCOMStartup object (xpcom)
   // has gone out of scope.  see bug #386739 for more details
   mProfileLock->Unlock();
   gProfileLock = nsnull;
@@ -3890,7 +3892,7 @@ XREMain::XRE_main(int argc, char* argv[], const nsXREAppData* aAppData)
   nsQAppInstance::Release();
 #endif
 
-  // Restart the app after XPCOM has been shut down cleanly. 
+  // Restart the app after XPCOM has been shut down cleanly.
   if (appInitiatedRestart) {
     RestoreStateForAppInitiatedRestart();
 
@@ -3965,7 +3967,7 @@ XRE_InitCommandLine(int aArgc, char* aArgv[])
       canonArgs[i] = strdup(aArgv[i]);
     }
   }
- 
+
   NS_ASSERTION(!CommandLine::IsInitialized(), "Bad news!");
   CommandLine::Init(aArgc, canonArgs);
 
@@ -4032,7 +4034,7 @@ SetupErrorHandling(const char* progname)
 #ifdef XP_WIN
   /* On Windows XPSP3 and Windows Vista if DEP is configured off-by-default
      we still want DEP protection: enable it explicitly and programmatically.
-     
+
      This function is not available on WinXPSP2 so we dynamically load it.
   */
 
