@@ -42,6 +42,7 @@
 
 */
 
+#include "base/basictypes.h"
 #include "nsAutoPtr.h"
 #include "nsChromeProtocolHandler.h"
 #include "nsChromeRegistry.h"

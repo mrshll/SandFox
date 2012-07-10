@@ -36,6 +36,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+#include "base/basictypes.h"
 #include "nsXPCOMGlue.h"
 #include "nsGlueLinking.h"
 

@@ -39,13 +39,13 @@
 #error nsMediaCacheRemover only needed on Windows.
 #endif
 
+#include "nsXULAppAPI.h"
 #include "nsIObserver.h"
 #include "nsIIdleService.h"
 #include "nsISimpleEnumerator.h"
 #include "nsILocalFile.h"
 #include "nsAppDirectoryServiceDefs.h"
 #include "nsDirectoryServiceDefs.h"
-#include "nsXULAppAPI.h"
 #include "nsString.h"
 #include "nsAutoPtr.h"
 #include "nsITimer.h"
