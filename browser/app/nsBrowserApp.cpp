@@ -147,6 +147,12 @@ static int do_main(int argc, char* argv[])
   nsCOMPtr<nsILocalFile> appini;
   nsresult rv;
 
+  // TODO : i think chromium has some sort of union they
+  // use for passing the BrokerServices or TargetServices pointer,
+  // we should use this too.
+  sandbox::SandboxInterfaceInfo sandboxInfo = {0};
+  InitializeSandboxInfo(&sandboxInfo);
+
   // Allow firefox.exe to launch XULRunner apps via -app <application.ini>
   // Note that -app must be the *first* argument.
   const char *appDataFile = getenv("XUL_APP_FILE");
@@ -187,12 +193,23 @@ static int do_main(int argc, char* argv[])
       Output("Couldn't read application.ini");
       return 255;
     }
-    int result = XRE_main(argc, argv, appData);
+    int result = XRE_main(argc, argv, appData, sandboxInfo);
     XRE_FreeAppData(appData);
     return result;
   }
 
-  return XRE_main(argc, argv, &sAppData);
+  return XRE_main(argc, argv, &sAppData, sandboxInfo);
+}
+
+void InitializeSandboxInfo(sandbox::SandboxInterfaceInfo* info) {
+  info->broker_services = sandbox::SandboxFactory::GetBrokerServices();
+  if (!info->broker_services)
+    info->target_services = sandbox::SandboxFactory::GetTargetServices();
+
+  if (base::win::GetVersion() < base::win::VERSION_VISTA) {
+    // Enforces strong DEP support. Vista uses the NXCOMPAT flag in the exe.
+    sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
+  }
 }
 
 int main(int argc, char* argv[])
@@ -201,13 +218,8 @@ int main(int argc, char* argv[])
 
   printf("Starting up... trying to initialize sandbox\n");
 
-  // TODO : i think chromium has some sort of union they
-  // use for passing the BrokerServices or TargetServices pointer,
-  // we should use this too.
-  sandbox::ResultCode resultCode;
-  sandbox::BrokerServices* broker_service =
-      sandbox::SandboxFactory::GetBrokerServices();
-  
+
+
   if (NULL != broker_service) {
     printf("Hello from the broker !\n");
     if (0 != (resultCode = broker_service->Init())) {
@@ -217,7 +229,7 @@ int main(int argc, char* argv[])
 
     printf("Looks like broker successfully initialized\n");
     // after we spawn the target, we will want to enter the event
-    // loop, we do this with : 
+    // loop, we do this with :
     // broker_service->WaitForAllTargets();
   }
   else {
