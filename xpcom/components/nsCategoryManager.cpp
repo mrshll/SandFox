@@ -38,7 +38,6 @@
 
 #define PL_ARENA_CONST_ALIGN_MASK 7
 
-#include "base/basictypes.h"
 #include "nsICategoryManager.h"
 #include "nsCategoryManager.h"
 

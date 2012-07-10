@@ -39,7 +39,6 @@
 #ifndef nsXPComPrivate_h__
 #define nsXPComPrivate_h__
 
-#include "base/basictypes.h"
 #include "nscore.h"
 #include "nsXPCOM.h"
 #include "nsXPCOMStrings.h"
