@@ -9,7 +9,7 @@
 
 #include "sandbox/src/policy_low_level.h"
 
-#include "base/basictypes.h"
+
 #include "sandbox/src/crosscall_server.h"
 #include "sandbox/src/sandbox_policy.h"
 

@@ -5,7 +5,7 @@
 #ifndef SANDBOX_SRC_SANDBOX_NT_UTIL_H_
 #define SANDBOX_SRC_SANDBOX_NT_UTIL_H_
 
-#include "base/basictypes.h"
+
 #include "sandbox/src/nt_internals.h"
 #include "sandbox/src/sandbox_nt_types.h"
 
