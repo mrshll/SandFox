@@ -2748,7 +2748,7 @@ public:
   }
 
   int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
-                                      sandbox::SandboxInterfaceInfo* targetServices);
+                                    sandbox::SandboxInterfaceInfo* sandboxInfo);
 
   int XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag);
   int XRE_mainStartup(bool* aExitFlag);
@@ -3799,7 +3799,7 @@ XREMain::XRE_mainRun()
  * XRE_main - A class based main entry point used by most platforms.
  */
 int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
-                                     sandbox::SandboxInterfaceInfo* sandboxInf);
+                                    sandbox::SandboxInterfaceInfo* sandboxInfo);
 {
   NS_TIME_FUNCTION;
   SAMPLER_INIT();
