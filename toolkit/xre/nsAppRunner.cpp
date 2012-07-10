@@ -46,6 +46,8 @@
 #include <os2safe.h>
 #endif
 
+#include "sandbox.h"
+
 #define XPCOM_TRANSLATE_NSGM_ENTRY_POINT 1
 
 #if defined(MOZ_WIDGET_QT)
@@ -2745,7 +2747,7 @@ public:
     }
   }
 
-  int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData);
+  int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData, sandbox::BrokerServices* brokerServices, sandbox::TargetServices* targetServices);
   int XRE_mainInit(const nsXREAppData* aAppData, bool* aExitFlag);
   int XRE_mainStartup(bool* aExitFlag);
   nsresult XRE_mainRun();

@@ -41,9 +41,6 @@
 #define nsXREAppData_h
 
 #include "mozilla/StandardInteger.h"
-#ifdef XP_WIN
-#include "sandbox.h"
-#endif
 
 class nsILocalFile;
 
@@ -151,15 +148,6 @@ struct nsXREAppData
    *   UAppData = $HOME/$profile
    */
   const char *profile;
-
-  /**
-   * The broker service to handle sandboxing if on Windows
-   */
-
-#ifdef XP_WIN
-  sandbox::BrokerServices* broker_service;
-#endif
-
 };
 
 /**
