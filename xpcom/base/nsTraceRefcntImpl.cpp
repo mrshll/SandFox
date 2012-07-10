@@ -36,6 +36,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+#include "base/basictypes.h"
 #include "nsTraceRefcntImpl.h"
 #include "nsXPCOMPrivate.h"
 #include "nscore.h"

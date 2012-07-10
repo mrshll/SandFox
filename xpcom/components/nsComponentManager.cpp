@@ -48,6 +48,7 @@
  */
 
 #include <stdlib.h>
+#include "base/basictypes.h"
 #include "nscore.h"
 #include "nsISupports.h"
 #include "nspr.h"
