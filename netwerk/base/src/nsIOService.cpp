@@ -37,6 +37,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+#include "base/basictypes.h"
 #include "nsIOService.h"
 #include "nsIProtocolHandler.h"
 #include "nsIFileProtocolHandler.h"
@@ -48,9 +49,9 @@
 #include "prlog.h"
 #include "nsLoadGroup.h"
 #include "nsInputStreamChannel.h"
-#include "nsXPIDLString.h" 
+#include "nsXPIDLString.h"
 #include "nsReadableUtils.h"
-#include "nsIErrorService.h" 
+#include "nsIErrorService.h"
 #include "netCore.h"
 #include "nsIObserverService.h"
 #include "nsIPrefService.h"
@@ -95,71 +96,71 @@
 nsIOService* gIOService = nsnull;
 static bool gHasWarnedUploadChannel2;
 
-// A general port blacklist.  Connections to these ports will not be allowed unless 
+// A general port blacklist.  Connections to these ports will not be allowed unless
 // the protocol overrides.
 //
-// TODO: I am sure that there are more ports to be added.  
+// TODO: I am sure that there are more ports to be added.
 //       This cut is based on the classic mozilla codebase
 
-PRInt16 gBadPortList[] = { 
-  1,    // tcpmux          
-  7,    // echo     
-  9,    // discard          
-  11,   // systat   
-  13,   // daytime          
-  15,   // netstat  
-  17,   // qotd             
-  19,   // chargen  
-  20,   // ftp-data         
-  21,   // ftp-cntl 
-  22,   // ssh              
-  23,   // telnet   
-  25,   // smtp     
-  37,   // time     
-  42,   // name     
-  43,   // nicname  
-  53,   // domain  
-  77,   // priv-rjs 
-  79,   // finger   
-  87,   // ttylink  
-  95,   // supdup   
+PRInt16 gBadPortList[] = {
+  1,    // tcpmux
+  7,    // echo
+  9,    // discard
+  11,   // systat
+  13,   // daytime
+  15,   // netstat
+  17,   // qotd
+  19,   // chargen
+  20,   // ftp-data
+  21,   // ftp-cntl
+  22,   // ssh
+  23,   // telnet
+  25,   // smtp
+  37,   // time
+  42,   // name
+  43,   // nicname
+  53,   // domain
+  77,   // priv-rjs
+  79,   // finger
+  87,   // ttylink
+  95,   // supdup
   101,  // hostriame
-  102,  // iso-tsap 
-  103,  // gppitnp  
-  104,  // acr-nema 
-  109,  // pop2     
-  110,  // pop3     
-  111,  // sunrpc   
-  113,  // auth     
-  115,  // sftp     
+  102,  // iso-tsap
+  103,  // gppitnp
+  104,  // acr-nema
+  109,  // pop2
+  110,  // pop3
+  111,  // sunrpc
+  113,  // auth
+  115,  // sftp
   117,  // uucp-path
-  119,  // nntp     
+  119,  // nntp
   123,  // NTP
-  135,  // loc-srv / epmap         
+  135,  // loc-srv / epmap
   139,  // netbios
-  143,  // imap2  
+  143,  // imap2
   179,  // BGP
-  389,  // ldap        
+  389,  // ldap
   465,  // smtp+ssl
-  512,  // print / exec          
-  513,  // login         
-  514,  // shell         
-  515,  // printer         
-  526,  // tempo         
-  530,  // courier        
-  531,  // Chat         
-  532,  // netnews        
-  540,  // uucp       
-  556,  // remotefs    
+  512,  // print / exec
+  513,  // login
+  514,  // shell
+  515,  // printer
+  526,  // tempo
+  530,  // courier
+  531,  // Chat
+  532,  // netnews
+  540,  // uucp
+  556,  // remotefs
   563,  // nntp+ssl
   587,  //
-  601,  //       
+  601,  //
   636,  // ldap+ssl
   993,  // imap+ssl
   995,  // pop3+ssl
   2049, // nfs
   4045, // lockd
-  6000, // x11        
+  6000, // x11
   0,    // This MUST be zero so that we can populating the array
 };
 
@@ -213,7 +214,7 @@ nsIOService::Init()
     }
     else
         NS_WARNING("failed to get error service");
-    
+
     NS_TIME_FUNCTION_MARK("got Error Service");
 
     // setup our bad port list stuff
@@ -229,7 +230,7 @@ nsIOService::Init()
         prefBranch->AddObserver(MANAGE_OFFLINE_STATUS_PREF, this, true);
         PrefsChanged(prefBranch);
     }
-    
+
     // Register for profile change notifications
     nsCOMPtr<nsIObserverService> observerService =
         mozilla::services::GetObserverService();
@@ -242,13 +243,13 @@ nsIOService::Init()
     }
     else
         NS_WARNING("failed to get observer service");
-        
+
     NS_TIME_FUNCTION_MARK("Registered observers");
 
     gIOService = this;
 
     InitializeNetworkLinkService();
- 
+
     NS_TIME_FUNCTION_MARK("Set up network link service");
 
     return NS_OK;
@@ -294,8 +295,8 @@ nsIOService::InitializeNetworkLinkService()
         return rv;
 
     if (!NS_IsMainThread()) {
-        NS_WARNING("Network link service should be created on main thread"); 
-        return NS_ERROR_FAILURE; 
+        NS_WARNING("Network link service should be created on main thread");
+        return NS_ERROR_FAILURE;
     }
 
     // go into managed mode if we can, and chrome process
@@ -312,13 +313,13 @@ nsIOService::InitializeNetworkLinkService()
         // so let's cross our fingers!
         mManageOfflineStatus = false;
     }
-   
+
 
     if (mManageOfflineStatus)
         TrackNetworkLinkStatusForOffline();
     else
         SetOffline(false);
-    
+
     return rv;
 }
 
@@ -425,14 +426,14 @@ nsIOService::GetCachedProtocolHandler(const char *scheme, nsIProtocolHandler **r
     }
     return NS_ERROR_FAILURE;
 }
- 
+
 NS_IMETHODIMP
 nsIOService::GetProtocolHandler(const char* scheme, nsIProtocolHandler* *result)
 {
     nsresult rv;
 
     NS_ENSURE_ARG_POINTER(scheme);
-    // XXX we may want to speed this up by introducing our own protocol 
+    // XXX we may want to speed this up by introducing our own protocol
     // scheme -> protocol handler mapping, avoiding the string manipulation
     // and service manager stuff
 
@@ -530,7 +531,7 @@ nsIOService::ExtractScheme(const nsACString &inURI, nsACString &scheme)
     return net_ExtractURLScheme(inURI, nsnull, nsnull, &scheme);
 }
 
-NS_IMETHODIMP 
+NS_IMETHODIMP
 nsIOService::GetProtocolFlags(const char* scheme, PRUint32 *flags)
 {
     nsCOMPtr<nsIProtocolHandler> handler;
@@ -586,7 +587,7 @@ nsIOService::NewURI(const nsACString &aSpec, const char *aCharset, nsIURI *aBase
 }
 
 
-NS_IMETHODIMP 
+NS_IMETHODIMP
 nsIOService::NewFileURI(nsIFile *file, nsIURI **result)
 {
     nsresult rv;
@@ -599,7 +600,7 @@ nsIOService::NewFileURI(nsIFile *file, nsIURI **result)
 
     nsCOMPtr<nsIFileProtocolHandler> fileHandler( do_QueryInterface(handler, &rv) );
     if (NS_FAILED(rv)) return rv;
-    
+
     return fileHandler->NewFileURI(file, result);
 }
 
@@ -779,7 +780,7 @@ nsIOService::SetOffline(bool offline)
     if (XRE_GetProcessType() == GeckoProcessType_Default) {
         if (observerService) {
             (void)observerService->NotifyObservers(nsnull,
-                NS_IPC_IOSERVICE_SET_OFFLINE_TOPIC, offline ? 
+                NS_IPC_IOSERVICE_SET_OFFLINE_TOPIC, offline ?
                 NS_LITERAL_STRING("true").get() :
                 NS_LITERAL_STRING("false").get());
         }
@@ -853,7 +854,7 @@ nsIOService::AllowPort(PRInt32 inPort, const char *scheme, bool *_retval)
         *_retval = true;
         return NS_OK;
     }
-        
+
     // first check to see if the port is in our blacklist:
     PRInt32 badPortListCnt = mRestrictedPortList.Length();
     for (int i=0; i<badPortListCnt; i++)
@@ -865,7 +866,7 @@ nsIOService::AllowPort(PRInt32 inPort, const char *scheme, bool *_retval)
             // check to see if the protocol wants to override
             if (!scheme)
                 return NS_OK;
-            
+
             nsCOMPtr<nsIProtocolHandler> handler;
             nsresult rv = GetProtocolHandler(scheme, getter_AddRefs(handler));
             if (NS_FAILED(rv)) return rv;
@@ -920,7 +921,7 @@ nsIOService::PrefsChanged(nsIPrefBranch *prefs, const char *pref)
             if (count > 0)
                 gDefaultSegmentCount = count;
     }
-    
+
     if (!pref || strcmp(pref, NECKO_BUFFER_CACHE_SIZE_PREF) == 0) {
         PRInt32 size;
         if (NS_SUCCEEDED(prefs->GetIntPref(NECKO_BUFFER_CACHE_SIZE_PREF,
@@ -1007,9 +1008,9 @@ nsIOService::Observe(nsISupports *subject,
                 NS_FAILED(TrackNetworkLinkStatusForOffline())) {
                 SetOffline(false);
             }
-        } 
-    } 
-    else if (!strcmp(topic, kProfileDoChange)) { 
+        }
+    }
+    else if (!strcmp(topic, kProfileDoChange)) {
         if (data && NS_LITERAL_STRING("startup").Equals(data)) {
             // Lazy initialization of network link service (see bug 620472)
             InitializeNetworkLinkService();
@@ -1034,7 +1035,7 @@ nsIOService::Observe(nsISupports *subject,
             TrackNetworkLinkStatusForOffline();
         }
     }
-    
+
     return NS_OK;
 }
 
@@ -1060,14 +1061,14 @@ nsIOService::ProtocolHasFlags(nsIURI   *uri,
     nsCAutoString scheme;
     nsresult rv = uri->GetScheme(scheme);
     NS_ENSURE_SUCCESS(rv, rv);
-  
+
     PRUint32 protocolFlags;
     rv = GetProtocolFlags(scheme.get(), &protocolFlags);
 
     if (NS_SUCCEEDED(rv)) {
         *result = (protocolFlags & flags) == flags;
     }
-  
+
     return rv;
 }
 
@@ -1136,12 +1137,12 @@ nsIOService::SetManageOfflineStatus(bool aManage) {
     nsresult rv = NS_OK;
 
     // SetManageOfflineStatus must throw when we fail to go from non-managed
-    // to managed.  Usually because there is no link monitoring service 
-    // available.  Failure to do this switch is detected by a failure of 
-    // TrackNetworkLinkStatusForOffline().  When there is no network link 
+    // to managed.  Usually because there is no link monitoring service
+    // available.  Failure to do this switch is detected by a failure of
+    // TrackNetworkLinkStatusForOffline().  When there is no network link
     // available during call to InitializeNetworkLinkService(), application is
-    // put to offline mode.  And when we change mMangeOfflineStatus to false 
-    // on the next line we get stuck on being offline even though the link 
+    // put to offline mode.  And when we change mMangeOfflineStatus to false
+    // on the next line we get stuck on being offline even though the link
     // becomes later available.
     bool wasManaged = mManageOfflineStatus;
     mManageOfflineStatus = aManage;
@@ -1172,20 +1173,20 @@ nsIOService::TrackNetworkLinkStatusForOffline()
 
     if (mShutdown)
         return NS_ERROR_NOT_AVAILABLE;
-  
+
     // check to make sure this won't collide with Autodial
     if (mSocketTransportService) {
         bool autodialEnabled = false;
         mSocketTransportService->GetAutodialEnabled(&autodialEnabled);
-        // If autodialing-on-link-down is enabled, check if the OS auto dial 
-        // option is set to always autodial. If so, then we are 
+        // If autodialing-on-link-down is enabled, check if the OS auto dial
+        // option is set to always autodial. If so, then we are
         // always up for the purposes of offline management.
         if (autodialEnabled) {
 #if defined(XP_WIN) || defined(MOZ_PLATFORM_MAEMO)
             // On Windows and Maemo (libconic) we should first check with the OS
             // to see if autodial is enabled.  If it is enabled then we are
             // allowed to manage the offline state.
-            if(nsNativeConnectionHelper::IsAutodialEnabled()) 
+            if(nsNativeConnectionHelper::IsAutodialEnabled())
                 return SetOffline(false);
 #else
             return SetOffline(false);
@@ -1217,22 +1218,22 @@ nsIOService::EscapeString(const nsACString& aString,
   return NS_OK;
 }
 
-NS_IMETHODIMP 
-nsIOService::EscapeURL(const nsACString &aStr, 
+NS_IMETHODIMP
+nsIOService::EscapeURL(const nsACString &aStr,
                        PRUint32 aFlags, nsACString &aResult)
 {
   aResult.Truncate();
-  NS_EscapeURL(aStr.BeginReading(), aStr.Length(), 
+  NS_EscapeURL(aStr.BeginReading(), aStr.Length(),
                aFlags | esc_AlwaysCopy, aResult);
   return NS_OK;
 }
 
-NS_IMETHODIMP 
-nsIOService::UnescapeString(const nsACString &aStr, 
+NS_IMETHODIMP
+nsIOService::UnescapeString(const nsACString &aStr,
                             PRUint32 aFlags, nsACString &aResult)
 {
   aResult.Truncate();
-  NS_UnescapeURL(aStr.BeginReading(), aStr.Length(), 
+  NS_UnescapeURL(aStr.BeginReading(), aStr.Length(),
                  aFlags | esc_AlwaysCopy, aResult);
   return NS_OK;
 }
@@ -1269,7 +1270,7 @@ nsIOService::SpeculativeConnect(nsIURI *aURI,
     // reward is slim with tcp peers closely located to the browser.
     nsCOMPtr<nsIProxyInfo> pi;
     LookupProxyInfo(aURI, nsnull, 0, &scheme, getter_AddRefs(pi));
-    if (pi) 
+    if (pi)
         return NS_OK;
 
     nsCOMPtr<nsIProtocolHandler> handler;
