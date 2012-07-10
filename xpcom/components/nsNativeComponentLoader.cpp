@@ -51,7 +51,6 @@
 #define FORCE_PR_LOG
 #endif
 
-#include "base/basictypes.h"
 #include "nsNativeComponentLoader.h"
 
 #include "prlog.h"

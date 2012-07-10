@@ -39,7 +39,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "base/basictypes.h"
 #include "nsChromeRegistry.h"
 #include "nsChromeRegistryChrome.h"
 #include "nsChromeRegistryContent.h"

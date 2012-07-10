@@ -36,7 +36,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "base/basictypes.h"
 #include "mozilla/Util.h"
 
 #include "ManifestParser.h"

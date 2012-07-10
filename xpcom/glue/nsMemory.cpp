@@ -35,7 +35,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "base/basictypes.h"
 #include "nsXPCOM.h"
 #include "nsMemory.h"
 #include "nsXPCOMPrivate.h"
