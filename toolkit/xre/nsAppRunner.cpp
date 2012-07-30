@@ -3812,7 +3812,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
   // restricted token so it also tells us which mode we are in. If we can
   // retrieve the pointer, then we are the broker, otherwise we are the target
   // that the broker launched.
-  if (broker_service != NULL)
+  if (broker_service != NULL){
     if (0 != (result = broker_service->Init())) {
       return 1;
     }
