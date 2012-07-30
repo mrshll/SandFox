@@ -165,7 +165,8 @@
  *
  */
 XRE_API(int,
-        XRE_main, (int argc, char* argv[], const nsXREAppData* sAppData))
+        XRE_main, (int argc, char* argv[], const nsXREAppData* sAppData,
+                                    sandbox::SandboxInterfaceInfo* sandboxInfo))
 
 /**
  * Given a path relative to the current working directory (or an absolute
