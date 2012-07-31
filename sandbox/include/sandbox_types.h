@@ -5,8 +5,10 @@
 #ifndef SANDBOX_SRC_SANDBOX_TYPES_H_
 #define SANDBOX_SRC_SANDBOX_TYPES_H_
 
-namespace sandbox {
+#include "prtypes.h"
 
+namespace sandbox {
+  typedef PRUint32 uint32;
 // Operation result codes returned by the sandbox API.
 enum ResultCode {
   SBOX_ALL_OK = 0,
