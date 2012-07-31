@@ -48,7 +48,9 @@
 #include "prlog.h"
 #include "nsXREAppData.h"
 
+#define uint32 PRUint32;
 #include "sandbox.h"
+#undef uint32
 
 #include "mozilla/Assertions.h"
 
