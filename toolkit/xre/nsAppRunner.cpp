@@ -3801,150 +3801,143 @@ XREMain::XRE_mainRun()
 int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
                                     sandbox::SandboxInterfaceInfo* sandboxInfo);
 {
+  NS_TIME_FUNCTION;
+  SAMPLER_INIT();
+  SAMPLE_LABEL("Startup", "XRE_Main");
 
-  // Try to get the broker service
-  sandbox::BrokerServices* broker_service =
-      sandbox::SandboxFactory::GetBrokerServices();
-  sandbox::ResultCode result;
+  nsresult rv = NS_OK;
 
-  // We check here to see if we can retrieve a pointer to the BrokerServices,
-  // which is not possible if we are running inside the sandbox under a
-  // restricted token so it also tells us which mode we are in. If we can
-  // retrieve the pointer, then we are the broker, otherwise we are the target
-  // that the broker launched.
-  if (broker_service != NULL){
-    if (0 != (result = broker_service->Init())) {
-      return 1;
-    }
+  NS_TIME_FUNCTION_MARK("XRE_main init");
 
-    NS_TIME_FUNCTION;
-    SAMPLER_INIT();
-    SAMPLE_LABEL("Startup", "XRE_Main");
+  gArgc = argc;
+  gArgv = argv;
 
-    nsresult rv = NS_OK;
+  NS_ENSURE_TRUE(aAppData, 2);
 
-    NS_TIME_FUNCTION_MARK("XRE_main init");
+  mAppData = new ScopedAppData(aAppData);
+  if (!mAppData)
+    return 1;
+  // used throughout this file
+  gAppData = mAppData;
 
-    gArgc = argc;
-    gArgv = argv;
-
-    NS_ENSURE_TRUE(aAppData, 2);
-
-    mAppData = new ScopedAppData(aAppData);
-    if (!mAppData)
-      return 1;
-    // used throughout this file
-    gAppData = mAppData;
-
-    ScopedLogging log;
+  ScopedLogging log;
 
 #if defined(MOZ_WIDGET_GTK2)
 #ifdef MOZ_MEMORY
-    // Disable the slice allocator, since jemalloc already uses similar layout
-    // algorithms, and using a sub-allocator tends to increase fragmentation.
-    // This must be done before g_thread_init() is called.
-    g_slice_set_config(G_SLICE_CONFIG_ALWAYS_MALLOC, 1);
+  // Disable the slice allocator, since jemalloc already uses similar layout
+  // algorithms, and using a sub-allocator tends to increase fragmentation.
+  // This must be done before g_thread_init() is called.
+  g_slice_set_config(G_SLICE_CONFIG_ALWAYS_MALLOC, 1);
 #endif
-    g_thread_init(NULL);
+  g_thread_init(NULL);
 #endif
 
+  if(sandboxInfo->broker){
     // init
     bool exit = false;
     int result = XRE_mainInit(aAppData, &exit);
     if (result != 0 || exit)
       return result;
+  }
 
+  if(sandboxInfo->broker){
     NS_TIME_FUNCTION_MARK("XRE_main startup");
     // startup
     result = XRE_mainStartup(&exit);
     if (result != 0 || exit)
       return result;
+  }
 
-    bool appInitiatedRestart = false;
+  bool appInitiatedRestart = false;
 
+  if(sandboxInfo->broker){
     // Start the real application
     NS_TIME_FUNCTION_MARK("XRE_main ScopedXPCOMStartup");
     mScopedXPCom = new ScopedXPCOMStartup();
     if (!mScopedXPCom)
       return 1;
+  }
 
+  if(sandboxInfo->broker){
     NS_TIME_FUNCTION_MARK("ScopedXPCOMStartup: Initialize");
     rv = mScopedXPCom->Initialize();
     NS_ENSURE_SUCCESS(rv, 1);
+  }
 
+  if(sandboxInfo->broker){
     // run!
     NS_TIME_FUNCTION_MARK("XRE_main run");
     rv = XRE_mainRun();
+  }
 
-    NS_TIME_FUNCTION_MARK("XRE_main shutdown");
+  NS_TIME_FUNCTION_MARK("XRE_main shutdown");
 #ifdef MOZ_INSTRUMENT_EVENT_LOOP
-    mozilla::ShutdownEventTracing();
+  mozilla::ShutdownEventTracing();
 #endif
 
-    // Check for an application initiated restart.  This is one that
-    // corresponds to nsIAppStartup.quit(eRestart)
-    if (rv == NS_SUCCESS_RESTART_APP) {
-      appInitiatedRestart = true;
-    }
+  // Check for an application initiated restart.  This is one that
+  // corresponds to nsIAppStartup.quit(eRestart)
+  if (rv == NS_SUCCESS_RESTART_APP) {
+    appInitiatedRestart = true;
+  }
 
-    if (!mShuttingDown) {
+  if (!mShuttingDown) {
 #ifdef MOZ_ENABLE_XREMOTE
-      // shut down the x remote proxy window
-      if (mRemoteService) {
-        mRemoteService->Shutdown();
-      }
-#endif /* MOZ_ENABLE_XREMOTE */
+    // shut down the x remote proxy window
+    if (mRemoteService) {
+      mRemoteService->Shutdown();
     }
+#endif /* MOZ_ENABLE_XREMOTE */
+  }
 
-    delete mScopedXPCom;
-    mScopedXPCom = nsnull;
+  delete mScopedXPCom;
+  mScopedXPCom = nsnull;
 
-    // unlock the profile after ScopedXPCOMStartup object (xpcom)
-    // has gone out of scope.  see bug #386739 for more details
-    mProfileLock->Unlock();
-    gProfileLock = nsnull;
+  // unlock the profile after ScopedXPCOMStartup object (xpcom)
+  // has gone out of scope.  see bug #386739 for more details
+  mProfileLock->Unlock();
+  gProfileLock = nsnull;
 
 #if defined(MOZ_WIDGET_QT)
-    nsQAppInstance::Release();
+  nsQAppInstance::Release();
 #endif
 
-    // Restart the app after XPCOM has been shut down cleanly.
-    if (appInitiatedRestart) {
-      RestoreStateForAppInitiatedRestart();
+  // Restart the app after XPCOM has been shut down cleanly.
+  if (appInitiatedRestart) {
+    RestoreStateForAppInitiatedRestart();
 
-      // Ensure that these environment variables are set:
-      SaveFileToEnvIfUnset("XRE_PROFILE_PATH", mProfD);
-      SaveFileToEnvIfUnset("XRE_PROFILE_LOCAL_PATH", mProfLD);
-      SaveWordToEnvIfUnset("XRE_PROFILE_NAME", mProfileName);
+    // Ensure that these environment variables are set:
+    SaveFileToEnvIfUnset("XRE_PROFILE_PATH", mProfD);
+    SaveFileToEnvIfUnset("XRE_PROFILE_LOCAL_PATH", mProfLD);
+    SaveWordToEnvIfUnset("XRE_PROFILE_NAME", mProfileName);
 
 #ifdef MOZ_WIDGET_GTK2
-      MOZ_gdk_display_close(mGdkDisplay);
-#endif
-
-      rv = LaunchChild(mNativeApp, true);
-
-#ifdef MOZ_CRASHREPORTER
-      if (mAppData->flags & NS_XRE_ENABLE_CRASH_REPORTER)
-        CrashReporter::UnsetExceptionHandler();
-#endif
-      return rv == NS_ERROR_LAUNCHED_CHILD_PROCESS ? 0 : 1;
-    }
-
-#ifdef MOZ_WIDGET_GTK2
-    // gdk_display_close also calls gdk_display_manager_set_default_display
-    // appropriately when necessary.
     MOZ_gdk_display_close(mGdkDisplay);
 #endif
 
+    rv = LaunchChild(mNativeApp, true);
+
 #ifdef MOZ_CRASHREPORTER
     if (mAppData->flags & NS_XRE_ENABLE_CRASH_REPORTER)
-        CrashReporter::UnsetExceptionHandler();
+      CrashReporter::UnsetExceptionHandler();
+#endif
+    return rv == NS_ERROR_LAUNCHED_CHILD_PROCESS ? 0 : 1;
+  }
+
+#ifdef MOZ_WIDGET_GTK2
+  // gdk_display_close also calls gdk_display_manager_set_default_display
+  // appropriately when necessary.
+  MOZ_gdk_display_close(mGdkDisplay);
 #endif
 
-    XRE_DeinitCommandLine();
+#ifdef MOZ_CRASHREPORTER
+  if (mAppData->flags & NS_XRE_ENABLE_CRASH_REPORTER)
+    CrashReporter::UnsetExceptionHandler();
+#endif
 
-    return NS_FAILED(rv) ? 1 : 0;
-  }
+  XRE_DeinitCommandLine();
+
+  return NS_FAILED(rv) ? 1 : 0;
 }
 
 int
