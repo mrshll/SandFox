@@ -47,6 +47,7 @@
 #include "nsISupports.h"
 #include "prlog.h"
 #include "nsXREAppData.h"
+#include "sandbox.h"
 
 #include "mozilla/Assertions.h"
 
