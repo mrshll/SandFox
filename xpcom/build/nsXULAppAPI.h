@@ -41,7 +41,6 @@
 #define _nsXULAppAPI_h__
 
 #include "prtypes.h"
-#include "basictypes.h"
 #include "nsID.h"
 #include "xrecore.h"
 #include "nsXPCOM.h"
