@@ -40,6 +40,7 @@
 #ifndef _nsXULAppAPI_h__
 #define _nsXULAppAPI_h__
 
+#include "base/basictypes.h"
 #include "prtypes.h"
 #include "nsID.h"
 #include "xrecore.h"
@@ -48,7 +49,6 @@
 #include "prlog.h"
 #include "nsXREAppData.h"
 
-#include "base/basictypes.h"
 #include "sandbox.h"
 
 #include "mozilla/Assertions.h"
