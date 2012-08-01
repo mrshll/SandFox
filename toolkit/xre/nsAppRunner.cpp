@@ -3944,7 +3944,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
                                     sandbox::SandboxInterfaceInfo* sandboxInfo)
 {
   XREMain main;
-  return main.XRE_main(argc, argv, aAppData);
+  return main.XRE_main(argc, argv, aAppData, sandboxInfo);
 }
 
 nsresult
