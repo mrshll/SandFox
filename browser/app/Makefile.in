@@ -45,7 +45,6 @@ srcdir		= @srcdir@
 VPATH		= @srcdir@
 
 include $(DEPTH)/config/autoconf.mk
-include $(topsrcdir)/ipc/chromium/chromium-config.mk
 
 DIRS        = profile/extensions
 dist_dest   = $(DIST)/$(MOZ_MACBUNDLE_NAME)
@@ -118,6 +117,7 @@ endif
 NSDISTMODE = copy
 
 include $(topsrcdir)/config/config.mk
+include $(topsrcdir)/ipc/chromium/chromium-config.mk 
 
 ifdef _MSC_VER
 # Always enter a Windows program through wmain, whether or not we're
