@@ -3832,7 +3832,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
   g_thread_init(NULL);
 #endif
 
-  if(sandboxInfo->broker){
+  if(sandboxInfo->broker_services){
     // init
     bool exit = false;
     int result = XRE_mainInit(aAppData, &exit);
@@ -3840,7 +3840,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
       return result;
   }
 
-  if(sandboxInfo->broker){
+  if(sandboxInfo->broker_services){
     NS_TIME_FUNCTION_MARK("XRE_main startup");
     // startup
     result = XRE_mainStartup(&exit);
@@ -3850,7 +3850,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
 
   bool appInitiatedRestart = false;
 
-  if(sandboxInfo->broker){
+  if(sandboxInfo->broker_services){
     // Start the real application
     NS_TIME_FUNCTION_MARK("XRE_main ScopedXPCOMStartup");
     mScopedXPCom = new ScopedXPCOMStartup();
@@ -3858,13 +3858,13 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
       return 1;
   }
 
-  if(sandboxInfo->broker){
+  if(sandboxInfo->broker_services){
     NS_TIME_FUNCTION_MARK("ScopedXPCOMStartup: Initialize");
     rv = mScopedXPCom->Initialize();
     NS_ENSURE_SUCCESS(rv, 1);
   }
 
-  if(sandboxInfo->broker){
+  if(sandboxInfo->broker_services){
     // run!
     NS_TIME_FUNCTION_MARK("XRE_main run");
     rv = XRE_mainRun();
