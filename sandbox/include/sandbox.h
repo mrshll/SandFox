@@ -20,7 +20,6 @@
 #define SANDBOX_SRC_SANDBOX_H__
 
 #include <windows.h>
-
 #include "sandbox_policy.h"
 #include "sandbox_types.h"
 
