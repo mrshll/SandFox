@@ -3832,9 +3832,9 @@ int XREMain::XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
   g_thread_init(NULL);
 #endif
 
+  bool exit = false;
   if(sandboxInfo->broker_services){
     // init
-    bool exit = false;
     int result = XRE_mainInit(aAppData, &exit);
     if (result != 0 || exit)
       return result;
