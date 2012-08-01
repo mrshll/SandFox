@@ -143,6 +143,17 @@ static const nsDynamicFunctionLoad kXULFuncs[] = {
     { nsnull, nsnull }
 };
 
+void InitializeSandboxInfo(sandbox::SandboxInterfaceInfo* info) {
+  info->broker_services = sandbox::SandboxFactory::GetBrokerServices();
+  if (!info->broker_services)
+    info->target_services = sandbox::SandboxFactory::GetTargetServices();
+
+  if (base::win::GetVersion() < base::win::VERSION_VISTA) {
+    // Enforces strong DEP support. Vista uses the NXCOMPAT flag in the exe.
+    sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
+  }
+}
+
 static int do_main(int argc, char* argv[])
 {
   nsCOMPtr<nsILocalFile> appini;
@@ -194,23 +205,12 @@ static int do_main(int argc, char* argv[])
       Output("Couldn't read application.ini");
       return 255;
     }
-    int result = XRE_main(argc, argv, appData, sandboxInfo);
+    int result = XRE_main(argc, argv, appData, &sandboxInfo);
     XRE_FreeAppData(appData);
     return result;
   }
 
   return XRE_main(argc, argv, &sAppData, sandboxInfo);
-}
-
-void InitializeSandboxInfo(sandbox::SandboxInterfaceInfo* info) {
-  info->broker_services = sandbox::SandboxFactory::GetBrokerServices();
-  if (!info->broker_services)
-    info->target_services = sandbox::SandboxFactory::GetTargetServices();
-
-  if (base::win::GetVersion() < base::win::VERSION_VISTA) {
-    // Enforces strong DEP support. Vista uses the NXCOMPAT flag in the exe.
-    sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
-  }
 }
 
 int main(int argc, char* argv[])
