@@ -3843,7 +3843,7 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
   if(sandboxInfo->broker_services){
     NS_TIME_FUNCTION_MARK("XRE_main startup");
     // startup
-    result = XRE_mainStartup(&exit);
+      result = XRE_mainStartup(&exit);
     if (result != 0 || exit)
       return result;
   }
@@ -3940,8 +3940,8 @@ int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
   return NS_FAILED(rv) ? 1 : 0;
 }
 
-int
-XRE_main(int argc, char* argv[], const nsXREAppData* aAppData)
+int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
+                                    sandbox::SandboxInterfaceInfo* sandboxInfo)
 {
   XREMain main;
   return main.XRE_main(argc, argv, aAppData);
