@@ -5,6 +5,8 @@
 #ifndef SANDBOX_SRC_SANDBOX_TYPES_H_
 #define SANDBOX_SRC_SANDBOX_TYPES_H_
 
+#include <stdint.h>
+
 namespace sandbox {
   typedef uint32_t uint32;
 // Operation result codes returned by the sandbox API.
