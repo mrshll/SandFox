@@ -3799,7 +3799,7 @@ XREMain::XRE_mainRun()
  * XRE_main - A class based main entry point used by most platforms.
  */
 int XRE_main(int argc, char* argv[], const nsXREAppData* aAppData,
-                                    sandbox::SandboxInterfaceInfo* sandboxInfo);
+                                    sandbox::SandboxInterfaceInfo* sandboxInfo)
 {
   NS_TIME_FUNCTION;
   SAMPLER_INIT();

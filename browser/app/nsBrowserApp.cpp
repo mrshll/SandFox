@@ -218,8 +218,6 @@ int main(int argc, char* argv[])
 
   printf("Starting up... trying to initialize sandbox\n");
 
-
-
   if (NULL != broker_service) {
     printf("Hello from the broker !\n");
     if (0 != (resultCode = broker_service->Init())) {
