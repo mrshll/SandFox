@@ -148,8 +148,10 @@ void InitializeSandboxInfo(sandbox::SandboxInterfaceInfo* info) {
   if (!info->broker_services)
     info->target_services = sandbox::SandboxFactory::GetTargetServices();
 
+  // TODO : change this to do the version check the Gecko way
   if (base::win::GetVersion() < base::win::VERSION_VISTA) {
     // Enforces strong DEP support. Vista uses the NXCOMPAT flag in the exe.
+    // TODO: pull in whatever sandbox header we need to get these
     sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
   }
 }
@@ -210,38 +212,12 @@ static int do_main(int argc, char* argv[])
     return result;
   }
 
-  return XRE_main(argc, argv, &sAppData, sandboxInfo);
+  return XRE_main(argc, argv, &sAppData, &sandboxInfo);
 }
 
 int main(int argc, char* argv[])
 {
   char exePath[MAXPATHLEN];
-
-  printf("Starting up... trying to initialize sandbox\n");
-
-  if (NULL != broker_service) {
-    printf("Hello from the broker !\n");
-    if (0 != (resultCode = broker_service->Init())) {
-      printf("Broker failed to initialize\n");
-      return 255;
-    }
-
-    printf("Looks like broker successfully initialized\n");
-    // after we spawn the target, we will want to enter the event
-    // loop, we do this with :
-    // broker_service->WaitForAllTargets();
-  }
-  else {
-    sandbox::TargetServices* target_service
-        = sandbox::SandboxFactory::GetTargetServices();
-
-    if (NULL == target_service) {
-      printf("Failed to get target services !!");
-      return -255;
-    }
-
-    printf("Hello from the target !\n");
-  }
 
 #ifdef XP_MACOSX
   TriggerQuirks();
