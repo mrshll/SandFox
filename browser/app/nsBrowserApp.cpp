@@ -149,11 +149,11 @@ void InitializeSandboxInfo(sandbox::SandboxInterfaceInfo* info) {
     info->target_services = sandbox::SandboxFactory::GetTargetServices();
 
   // TODO : change this to do the version check the Gecko way
-  if (base::win::GetVersion() < base::win::VERSION_VISTA) {
+  //if (base::win::GetVersion() < base::win::VERSION_VISTA) {
     // Enforces strong DEP support. Vista uses the NXCOMPAT flag in the exe.
     // TODO: pull in whatever sandbox header we need to get these
-    sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
-  }
+  //  sandbox::SetCurrentProcessDEP(sandbox::DEP_ENABLED);
+  //}
 }
 
 static int do_main(int argc, char* argv[])
