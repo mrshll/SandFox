@@ -95,9 +95,6 @@ LIBS += \
 	$(topsrcdir)/sandbox/lib/base.lib \
 	$(topsrcdir)/sandbox/lib/base_static.lib \
 	$(topsrcdir)/sandbox/lib/dynamic_annotations.lib \
-	shell32.lib \
-	psapi.lib \
-	dbghelp.lib \
 	$(NULL)
 
 ifdef MOZ_LINKER
